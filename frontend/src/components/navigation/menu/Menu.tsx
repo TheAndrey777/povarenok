@@ -56,7 +56,7 @@ export const Menu: React.FC = () => {
   return (
     <div
       className={cn(
-        "w-[260px] h-full transition-all relative overflow-hidden bg-red-500",
+        "w-[260px] h-full transition-all relative overflow-hidden ",
         a
       )}
       onClick={() => {

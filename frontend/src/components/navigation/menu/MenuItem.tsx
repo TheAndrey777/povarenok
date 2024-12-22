@@ -20,8 +20,8 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     <div
       className={cn(
         "h-[40px] w-[calc(100%-20px)] min-w-[40px] flex overflow-hidden cursor-pointer mb-[8px] rounded-[5px] transition-all duration-300 ",
-        isActive && "bg-primary-50",
-        !isActive && "hover:scale-[1.05] hover:bg-primary-50 active:scale-100",
+        isActive && "bg-primary-100",
+        !isActive && "hover:scale-[1.05] hover:bg-primary-100 active:scale-100",
         isActive && !opened && "ml-[10px]"
       )}
       onClick={() => {
@@ -31,15 +31,15 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       <div className="h-full aspect-square flex items-center justify-center select-none">
         <Icon
           className={cn(
-            "h-[20px] w-[20px] text-default-300 transition-colors",
+            "h-[20px] w-[20px] text-default-300 transition-colors delay-0 duration-75",
             isActive && "text-primary"
           )}
         />
       </div>
       <div
         className={cn(
-          "flex items-center text-content-1  select-none transition-colors",
-          isActive && "text-primary"
+          "flex items-center text-default-500 select-none transition-all",
+          isActive && "text-primary font-semibold"
         )}
       >
         {name}
