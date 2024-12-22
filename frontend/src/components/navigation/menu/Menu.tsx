@@ -17,27 +17,27 @@ export const Menu: React.FC = () => {
 
   const items = [
     {
-      name: "Профиль",
+      name: "Рецепты",
       icon: IoPerson,
       isActive: false,
       onClick: () => {
-        navigate("/home/proffile");
-      },
-    },
-    {
-      name: "Офисы",
-      icon: FaListUl,
-      isActive: false,
-      onClick: () => {
-        navigate("/home/offices");
+        navigate("/home/recipe-list");
       },
     },
     {
       name: "Редактор",
+      icon: FaListUl,
+      isActive: false,
+      onClick: () => {
+        navigate("/home/recipe-editor");
+      },
+    },
+    {
+      name: "Избранное",
       icon: FaEdit,
       isActive: false,
       onClick: () => {
-        navigate("/home/editor");
+        navigate("/home/favourites");
       },
     },
     {
