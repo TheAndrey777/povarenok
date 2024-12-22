@@ -108,7 +108,6 @@ export const Input: React.FC<SwitchProps> = ({
           )}
         >
           <input
-            id={type == "password" ? type : id}
             type={type}
             className={cn(
               "outline outline-transparent border-none transition-all duration-300 bg-transparent absolute left-0 bottom-0 placeholder-default-500 text-layout-foreground w-full px-3 pt-[18px] h-full box-border",
