@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { storageReducer } from "./slices/storage";
 import { userReducer } from "./slices/user";
 
 //import { useDispatch } from "react-redux";
@@ -8,6 +9,7 @@ import { userReducer } from "./slices/user";
 
 const store = configureStore({
   reducer: {
+    storage: storageReducer,
     user: userReducer,
   },
 });
