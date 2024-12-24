@@ -13,10 +13,10 @@ const Home = () => {
         <Header />
         <div className="w-[calc(100%-260px)] h-[calc(100%-70px)] absolute top-[70px] left-[260px] overflow-y-scroll">
           <Routes>
-            <Route path="/recipe-editor/*" element={<RecipeEditor />} />
-            <Route path="/recipe/*" element={<Recipe />} />
-            <Route path="/recipe-list/*" element={<RecipeList />} />
-            <Route path="/*" element={<RecipeList />} />
+            <Route path="recipe-editor/*" element={<RecipeEditor />} />
+            <Route path="recipe" element={<Recipe />} />
+            <Route path="recipe-list/*" element={<RecipeList />} />
+            <Route path="*" element={<Recipe />} />
           </Routes>
         </div>
       </div>
