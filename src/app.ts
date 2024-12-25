@@ -5,6 +5,7 @@ import { errorHandler } from "./middlewares/error.middleware";
 import { authRouter } from "./routes/auth.router";
 import "./strategies/jwt.strategy";
 import { recipeRouter } from "./routes/recipe.router";
+import { userRouter } from "./routes/user.router";
 
 const app: Application = express();
 
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 app.use("/api/auth", authRouter);
 app.use("/api/recipe", recipeRouter);
+app.use("/api/user", userRouter);
 
 app.use(errorHandler);
 
