@@ -1,4 +1,5 @@
-import { BaseEntity, Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Recipe } from "./recipe";
 
 @Entity("users")
 export class User extends BaseEntity {
@@ -28,6 +29,9 @@ export class User extends BaseEntity {
     select: false
   })
   password!: string;
+
+  @OneToMany(() => Recipe, (recipe) => recipe.author)
+  recipes: Recipe[];
 
   @Column({
     type: "bool",
