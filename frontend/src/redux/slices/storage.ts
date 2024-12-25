@@ -6,9 +6,12 @@ const initialState = {
   menu: {
     activeId: 0,
   },
+  find: {
+    findItem: "",
+  },
   recipe: {
     id: 12,
-    title: "Оливье",
+    name: "Оливье",
     img: "https://static.mk.ru/upload/entities/2020/12/09/16/articles/facebookPicture/0f/8e/35/b7/3d58d2f1da58bb5824a2b298e4959103.jpg",
     description:
       "Оливье - Царь салат! Подборка лучших праздничных салатов в нашем новогоднем спецпроекте\nПодборка лучших праздничных салатов в нашем \nновогоднем спецпроекте\nв нашем новогоднем спецпроекте",
@@ -41,7 +44,7 @@ const storageSlice = createSlice({
     },
     setRecipe: (state, action: PayloadAction<any>) => {
       state.recipe.id = action.payload.id;
-      state.recipe.title = action.payload.title;
+      state.recipe.name = action.payload.name;
       state.recipe.img = action.payload.img;
       state.recipe.description = action.payload.description;
       state.recipe.author = action.payload.author;
@@ -51,11 +54,13 @@ const storageSlice = createSlice({
       state.recipe.ingredients = action.payload.ingredients;
       state.recipe.time = action.payload.time;
       state.recipe.manual = action.payload.manual;
-      console.log(state, action);
+    },
+    setFindItem: (state, action: PayloadAction<any>) => {
+      state.find.findItem = action.payload.findItem;
     },
   },
 });
 
-export const { setMenuActiveId, setRecipe } = storageSlice.actions;
+export const { setMenuActiveId, setRecipe, setFindItem } = storageSlice.actions;
 
 export const storageReducer = storageSlice.reducer;

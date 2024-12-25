@@ -1,4 +1,3 @@
-import { FaTrash } from "react-icons/fa6";
 import { Button } from "../../components/button/Button";
 import { InputArea } from "../../components/input-area/InputArea";
 import { Input } from "../../components/input/Input";
@@ -102,14 +101,17 @@ const RecipeEditor = () => {
         {ingredients.map((v: any, i: number) => (
           <div
             key={i}
-            className="flex mb-[10px] ml-[30px]  items-center text-layout-foreground text-[14px] font-medium"
+            className="flex ml-[30px] mb-[10px] items-center text-layout-foreground text-[14px] font-medium"
           >
             <div className="w-[250px] border-l-0 border-y-0 border-solid border-default-400 border-[1px] pr-[10px]">
               {v.name}
             </div>
-            <div className="ml-[15px] "> {v.count} </div>
+            <div className="ml-[15px] w-[150px] text-wrap overflow-hidden">
+              {" "}
+              {v.count}{" "}
+            </div>
             <div
-              className="h-[40px] w-[40px] cursor-pointer mx-[50px] flex items-center justify-center bg-transparent duration-300 hover:bg-danger-200 rounded-md active:scale-90 transition-all scale-100"
+              className="h-[30px] w-[30px] cursor-pointer  flex items-center justify-center bg-transparent duration-300 hover:bg-danger-200 rounded-md active:scale-90 transition-all scale-100"
               onClick={() =>
                 setIngredients(
                   ingredients.filter((_: any, ii: number) => ii !== i)

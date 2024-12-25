@@ -34,7 +34,7 @@ export const Menu: React.FC = () => {
       icon: FaStar,
       isActive: false,
       onClick: () => {
-        navigate("/home/favourites");
+        navigate("/home/favourite-list");
       },
     },
   ];

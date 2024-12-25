@@ -12,7 +12,7 @@ interface ingredient {
   count: string;
 }
 
-interface RecipeItemProps {
+interface FavouriteItemProps {
   id: number;
   name: string;
   img: string;
@@ -26,17 +26,17 @@ interface RecipeItemProps {
   manual: string;
 }
 
-const RecipeItem: React.FC<RecipeItemProps> = ({
-  id = 12,
-  name = "Оливье",
-  img = "https://static.mk.ru/upload/entities/2020/12/09/16/articles/facebookPicture/0f/8e/35/b7/3d58d2f1da58bb5824a2b298e4959103.jpg",
-  description = "Оливье - Царь салат! Подборка лучших праздничных салатов в нашем новогоднем спецпроекте\nПодборка лучших праздничных салатов в нашем \nновогоднем спецпроекте\nв нашем новогоднем спецпроекте",
-  author = "Алексей Скобелев",
-  like = 123,
-  dislike = 123,
-  favourites = 123,
+const FavouriteItem: React.FC<FavouriteItemProps> = ({
+  id = 0,
+  name = "",
+  img = "",
+  description = "",
+  author = "",
+  like = 0,
+  dislike = 0,
+  favourites = 0,
   ingredients = [],
-  time = "30 мин",
+  time = "",
   manual = "",
 }) => {
   const navigate = useNavigate();
@@ -104,13 +104,6 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
 
       <Button
         className="absolute right-[15px] bottom-[15px]"
-        text="Добавить в избранное"
-        onClick={() => {
-          navigate("/home/favourites");
-        }}
-      />
-      <Button
-        className="absolute right-[225px] bottom-[15px]"
         text="Готовить"
         variant="light"
         onClick={() => {
@@ -135,4 +128,4 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
     </div>
   );
 };
-export default RecipeItem;
+export default FavouriteItem;
