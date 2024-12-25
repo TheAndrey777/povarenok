@@ -3,6 +3,7 @@ import { FaChevronDown, FaRegClock } from "react-icons/fa6";
 import { FiBookmark } from "react-icons/fi";
 import { BiLike, BiDislike } from "react-icons/bi";
 import { Button } from "../../components/button/Button";
+import { useNavigate } from "react-router-dom";
 
 interface ingredient {
   name: string;
@@ -34,8 +35,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
   ingredients = [],
   time = "30 мин",
 }) => {
-  console.log(id);
-
+  const navigate = useNavigate();
   const getCount = (n: number) => {
     if (n % 10 === 1 && n % 100 !== 11) {
       return n + " ингредиент";
@@ -101,7 +101,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
         className="absolute right-[15px] bottom-[15px]"
         text="Добавить в избранное"
         onClick={() => {
-          console.log("click recipe" + id);
+          navigate("/home/favourites");
         }}
       />
       <Button
@@ -109,7 +109,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
         text="Готовить"
         variant="light"
         onClick={() => {
-          console.log("click recipe cook" + id);
+          navigate("/home/recipe");
         }}
       />
     </div>

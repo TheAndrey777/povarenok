@@ -45,6 +45,7 @@ const Login = () => {
 
         <div className="mt-[15px]">
           <Input
+            color="danger"
             required
             label="Логин"
             radius="sm"

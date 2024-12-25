@@ -3,12 +3,9 @@ import { cn } from "../../../lib/cn";
 import { MenuItem } from "./MenuItem";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { IoPerson } from "react-icons/io5";
-import { FaListUl } from "react-icons/fa6";
-import { FaEdit } from "react-icons/fa";
-import { FaGear } from "react-icons/fa6";
+import { FaStar } from "react-icons/fa6";
+import { FaEdit, FaHome } from "react-icons/fa";
 import { menulogo } from "../../../assets/svg";
-
 import { setMenuActiveId } from "../../../redux/slices/storage";
 
 export const Menu: React.FC = () => {
@@ -17,8 +14,8 @@ export const Menu: React.FC = () => {
 
   const items = [
     {
-      name: "Рецепты",
-      icon: IoPerson,
+      name: "Главная",
+      icon: FaHome,
       isActive: false,
       onClick: () => {
         navigate("/home/recipe-list");
@@ -26,7 +23,7 @@ export const Menu: React.FC = () => {
     },
     {
       name: "Редактор",
-      icon: FaListUl,
+      icon: FaEdit,
       isActive: false,
       onClick: () => {
         navigate("/home/recipe-editor");
@@ -34,18 +31,10 @@ export const Menu: React.FC = () => {
     },
     {
       name: "Избранное",
-      icon: FaEdit,
+      icon: FaStar,
       isActive: false,
       onClick: () => {
         navigate("/home/favourites");
-      },
-    },
-    {
-      name: "Настройки",
-      icon: FaGear,
-      isActive: false,
-      onClick: () => {
-        navigate("/home/editor");
       },
     },
   ];
