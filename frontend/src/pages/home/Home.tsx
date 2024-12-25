@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import RecipeList from "../../views/recipe-list/RecipeList";
 import RecipeEditor from "../../views/recipe-editor/RecipeEditor";
 import Recipe from "../../views/recipe/Recipe";
+import FavouriteList from "../../views/favourites/FavouriteList";
 
 const Home = () => {
   return (
@@ -13,10 +14,11 @@ const Home = () => {
         <Header />
         <div className="w-[calc(100%-260px)] h-[calc(100%-70px)] absolute top-[70px] left-[260px] overflow-y-scroll">
           <Routes>
-            <Route path="/recipe-editor/*" element={<RecipeEditor />} />
-            <Route path="/recipe/*" element={<Recipe />} />
-            <Route path="/recipe-list/*" element={<RecipeList />} />
-            <Route path="/*" element={<RecipeList />} />
+            <Route path="recipe-editor/*" element={<RecipeEditor />} />
+            <Route path="recipe" element={<Recipe />} />
+            <Route path="recipe-list/*" element={<RecipeList />} />
+            <Route path="favourite-list/*" element={<FavouriteList />} />
+            <Route path="*" element={<RecipeList />} />
           </Routes>
         </div>
       </div>

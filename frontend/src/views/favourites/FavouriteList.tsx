@@ -1,7 +1,6 @@
+import FavouriteItem from "./FavouriteItem";
 import { useSelector } from "react-redux";
-import RecipeItem from "./RecipeItem";
-
-const RecipeList = () => {
+const FavouriteList = () => {
   const items = [
     {
       id: 12,
@@ -190,7 +189,7 @@ const RecipeList = () => {
             v.manual.toLowerCase().includes(findItem.toLowerCase())
         )
         .map((v, i) => (
-          <RecipeItem
+          <FavouriteItem
             key={i}
             id={v.id}
             name={v.name}
@@ -209,4 +208,4 @@ const RecipeList = () => {
   );
 };
 
-export default RecipeList;
+export default FavouriteList;

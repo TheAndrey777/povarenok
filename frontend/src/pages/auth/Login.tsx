@@ -1,30 +1,39 @@
 import React from "react";
 import { Button } from "../../components/button/Button";
-import { Checkbox } from "../../components/checkbox/Checkbox";
 import { Input } from "../../components/input/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/slices/user";
 import { setUsername, setPassword } from "../../redux/slices/user";
+import { cn } from "../../lib/cn";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [inputUsername, setInputUsername] = React.useState<string>("");
+  const [inputPassword, setInputPassword] = React.useState<string>("");
+  const [inputClickLogin, setInputClickLogin] = React.useState<boolean>(false);
+
   const changeUsername = (s: string) => {
     dispatch(setUsername(s));
+    setInputUsername(s);
   };
   const changePassword = (s: string) => {
     dispatch(setPassword(s));
+    setInputPassword(s);
   };
 
   const isAuthorised = useSelector((state: any) => state.user.isAuthorized);
-  console.log(isAuthorised);
+
   React.useEffect(() => {
     if (isAuthorised) navigate("/home/offices");
   }, [isAuthorised]);
-  console.log("auth", isAuthorised);
+
   const clickLogin = () => {
+    setInputClickLogin(true);
+    if (inputUsername == "" || inputPassword == "") return;
+    setInputClickLogin(false);
     dispatch(loginUser());
 
     if (isAuthorised) navigate("/home/offices");
@@ -44,26 +53,37 @@ const Login = () => {
         </div>
 
         <div className="mt-[15px]">
+          <div
+            className={cn(
+              "text-[14px] text-danger font-medium h-0 transition-all mt-[20px] overflow-hidden",
+              inputClickLogin && inputUsername == "" && "h-[21px]"
+            )}
+          >
+            Поле не может быть пустым
+          </div>
           <Input
+            color="danger"
             required
             label="Логин"
             radius="sm"
             className="w-[22rem]"
             onChange={changeUsername}
           />
+          <div
+            className={cn(
+              "text-[14px] text-danger font-medium h-0 transition-all mt-[15px] overflow-hidden",
+              inputClickLogin && inputPassword == "" && "h-[21px]"
+            )}
+          >
+            Поле не может быть пустым
+          </div>
           <Input
             required
             label="Пароль"
             type="password"
             radius="sm"
-            className="w-[22rem] mt-[15px]"
+            className="w-[22rem]"
             onChange={changePassword}
-          />
-
-          <Checkbox
-            className="mt-[15px]"
-            label="Сохранить вход"
-            onChange={(state: boolean) => console.log(state)}
           />
         </div>
 

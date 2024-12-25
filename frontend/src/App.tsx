@@ -1,7 +1,7 @@
 import { Switch } from "./components/switch/Switch";
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
-import Register from "./pages/auth/register/Register";
+import Register from "./pages/auth/Register";
 import Home from "./pages/home/Home";
 
 const App = () => {
@@ -21,7 +21,8 @@ const App = () => {
       <Routes>
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
-        <Route path="*" element={<Home />} />
+        <Route path="/home/*" element={<Home />} />
+        <Route path="/*" element={<Home />} />
       </Routes>
     </>
   );
