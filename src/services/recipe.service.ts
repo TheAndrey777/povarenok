@@ -38,7 +38,25 @@ class RecipeService {
   }
 
   public async getAllRecipes() {
-    return await Recipe.find();
+    return await Recipe.find({
+      relations: {
+        author: true
+      }
+    });
+  }
+
+  public async addRecipeToFavourites(recipeId: number, userId: number) {
+    const user = await userService.getUserById(userId);
+    if (!user)
+      return;
+    const recipe = await this.findRecipeById(recipeId);
+    if (!recipe)
+      return;
+    if (user.favourites.filter((r) => r.id == recipeId).length)
+      user.favourites = user.favourites.filter((r) => r.id != recipeId);
+    else
+      user.favourites.push(recipe);
+    await user.save();
   }
 }
 

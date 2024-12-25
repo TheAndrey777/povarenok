@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
 import { ValidationException } from "../exceptions/validation.exception";
-import recipeService from "../services/recipe.service";
 import { HttpException } from "../exceptions/http.exception";
+import recipeService from "../services/recipe.service";
 
 class RecipeController {
   async createRecipe(req: Request, res: Response, next: NextFunction) {
@@ -50,6 +50,21 @@ class RecipeController {
       status: "success",
       data: recipes
     });
+  }
+
+  async addToFavourites(req: Request, res: Response, next: NextFunction) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new ValidationException(errors.array()));
+    }
+
+    const recipe = await recipeService.findRecipeById(parseInt(req.params.id));
+    if (!recipe) {
+      return next(new HttpException(404, "Рецепт не найден"));
+    }
+
+    recipeService.addRecipeToFavourites(parseInt(req.params.id), req.user?.id!);
+    res.send({ status: "success" });
   }
 }
 

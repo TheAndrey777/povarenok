@@ -28,6 +28,9 @@ class UserService {
     return await User.findOne({
       where: {
         id
+      },
+      relations: {
+        favourites: true
       }
     });
   }
