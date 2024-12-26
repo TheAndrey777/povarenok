@@ -31,7 +31,7 @@ interface RecipeItemProps {
   dislike: number;
   favourites: number;
   ingredients: ingredient[];
-  time: string;
+  time: number;
   manual: string;
   favourite: boolean;
 }
@@ -46,7 +46,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
   dislike = 123,
   favourites = 123,
   ingredients = [],
-  time = "30 мин",
+  time = 30,
   manual = "",
   favourite = false,
 }) => {
@@ -63,6 +63,25 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
       return n + " ингредиента";
     }
     return n + " ингредиентов";
+  };
+
+  const getHour = (n: number) => {
+    if (n == 0) return "";
+    if (n % 10 === 1 && n % 100 !== 11) return n + " час";
+    if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20))
+      return n + " часа";
+    return n + " часов";
+  };
+  const getMinute = (n: number) => {
+    if (n == 0) return "";
+    if (n % 10 === 1 && n % 100 !== 11) return n + " минута";
+    if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20))
+      return n + " минуты";
+    return n + " минут";
+  };
+
+  const getTime = (n: number) => {
+    return getHour(Math.floor(n / 60)) + " " + getMinute(n % 60);
   };
 
   return (
@@ -112,7 +131,9 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
           </div>
           <span className="h-[25px] w-[1px] bg-default-500 rounded-full mx-[5px]"></span>
           <FaRegClock className="ml-[5px] text-default-500 h-[16px] w-[16px]" />
-          <div className=" text-[14px] font-medium ml-[5px]">{time}</div>
+          <div className=" text-[14px] font-medium ml-[5px]">
+            {getTime(time)}
+          </div>
         </div>
       </div>
 

@@ -24,7 +24,7 @@ interface FavouriteItemProps {
   dislike: number;
   favourites: number;
   ingredients: ingredient[];
-  time: string;
+  time: number;
   manual: string;
 }
 
@@ -38,7 +38,7 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
   dislike = 0,
   favourites = 0,
   ingredients = [],
-  time = "",
+  time = 0,
   manual = "",
 }) => {
   const navigate = useNavigate();
@@ -51,6 +51,25 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
       return n + " ингредиента";
     }
     return n + " ингредиентов";
+  };
+
+  const getHour = (n: number) => {
+    if (n == 0) return "";
+    if (n % 10 === 1 && n % 100 !== 11) return n + " час";
+    if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20))
+      return n + " часа";
+    return n + " часов";
+  };
+  const getMinute = (n: number) => {
+    if (n == 0) return "";
+    if (n % 10 === 1 && n % 100 !== 11) return n + " минута";
+    if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20))
+      return n + " минуты";
+    return n + " минут";
+  };
+
+  const getTime = (n: number) => {
+    return getHour(Math.floor(n / 60)) + " " + getMinute(n % 60);
   };
 
   return (
@@ -100,7 +119,9 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
           </div>
           <span className="h-[25px] w-[1px] bg-default-500 rounded-full mx-[5px]"></span>
           <FaRegClock className="ml-[5px] text-default-500 h-[16px] w-[16px]" />
-          <div className=" text-[14px] font-medium ml-[5px]">{time}</div>
+          <div className=" text-[14px] font-medium ml-[5px]">
+            {getTime(time)}
+          </div>
         </div>
       </div>
 
