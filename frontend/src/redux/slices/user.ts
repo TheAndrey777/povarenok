@@ -94,6 +94,9 @@ const userSlice = createSlice({
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
     },
+    isAuthorizedFalse: (state) => {
+      state.isAuthorized = false;
+    },
   },
   extraReducers: (builder) => {
     // *loginUser
@@ -115,6 +118,7 @@ const userSlice = createSlice({
       }
     });
     builder.addCase(loginUser.rejected, (state) => {
+      toast.error("Ошибка валидаии тела запроса");
       state.status = "error";
     });
 
@@ -124,12 +128,15 @@ const userSlice = createSlice({
     });
     builder.addCase(registerUser.fulfilled, (state, { payload }) => {
       if (payload.payload.status === "success") {
-        console.log(payload.payload);
+        toast.error("Регистрация успешна");
         state.isAuthorized = true;
+      } else {
+        toast.error("Пользователь уже зарегистрирован");
       }
       state.status = "loaded";
     });
     builder.addCase(registerUser.rejected, (state) => {
+      toast.error("Ошибка валидаии тела запроса");
       state.status = "error";
     });
 
@@ -169,7 +176,12 @@ const userSlice = createSlice({
   },
 });
 
-export const { setRedirectPath, setEmail, setUsername, setPassword } =
-  userSlice.actions;
+export const {
+  setRedirectPath,
+  setEmail,
+  setUsername,
+  setPassword,
+  isAuthorizedFalse,
+} = userSlice.actions;
 
 export const userReducer = userSlice.reducer;
