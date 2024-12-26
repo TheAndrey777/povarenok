@@ -8,6 +8,7 @@ import { setRecipe } from "../../redux/slices/storage";
 import { useDispatch } from "react-redux";
 import { deleteFavourites, getFavourites } from "../../redux/slices/recipe";
 import { cn } from "../../lib/cn";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 interface ingredient {
   name: string;
@@ -44,6 +45,13 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [active, setActive] = React.useState(false);
+
+  const ref = React.useRef<HTMLDivElement>(null);
+
+  useClickOutside(ref, () => {
+    setActive(false);
+  });
+
   const getCount = (n: number) => {
     if (n % 10 === 1 && n % 100 !== 11) {
       return n + " ингредиент";
@@ -111,7 +119,7 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
             </div>
           </div>
         </div>
-        <div className="h-[40px]  flex items-center">
+        <div className="h-[40px]  flex items-center" ref={ref}>
           <div
             className="h-[30px] flex items-center pl-[5px] cursor-pointer bg-transparent hover:bg-default-100 transition-all duration-300 rounded-[7px] relative"
             onClick={() => setActive(!active)}
