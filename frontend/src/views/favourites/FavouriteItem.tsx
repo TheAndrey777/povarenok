@@ -43,6 +43,7 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [active, setActive] = React.useState(false);
   const getCount = (n: number) => {
     if (n % 10 === 1 && n % 100 !== 11) {
       return n + " ингредиент";
@@ -111,11 +112,42 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
           </div>
         </div>
         <div className="h-[40px]  flex items-center">
-          <div className="h-[30px] flex items-center pl-[5px] cursor-pointer bg-transparent hover:bg-default-100 transition-all duration-300 rounded-[7px]">
-            <div className="text-[14px] font-medium">
+          <div
+            className="h-[30px] flex items-center pl-[5px] cursor-pointer bg-transparent hover:bg-default-100 transition-all duration-300 rounded-[7px] relative"
+            onClick={() => setActive(!active)}
+          >
+            <div className="text-[14px] font-medium select-none">
               {getCount(ingredients.length)}
             </div>
-            <FaChevronDown className="text-default-500 ml-[10px] mr-[5px]  h-[14px] w-[14px]" />
+            <FaChevronDown
+              className={cn(
+                "text-default-500 ml-[10px] mr-[5px]  h-[14px] w-[14px]rotate-0 transition-all",
+                active && "rotate-180"
+              )}
+            />
+            <div
+              className={cn(
+                " bg-layout-background border-transparent border-solid border-[1px] min-w-[400px] grid-rows-[0fr] absolute top-[100%] left-0 grid  overflow-hidden transition-all rounded-[10px]  z-10 mt-[5px]",
+                active && "grid-rows-[1fr] border-default-300"
+              )}
+            >
+              <div className="w-[100%] overflow-hidden">
+                {ingredients.map((v, i) => (
+                  <div
+                    key={i}
+                    className={cn(
+                      "flex mb-[10px] ml-[10px]  items-center text-layout-foreground text-[14px] font-medium overflow-hidden",
+                      i == 0 && "mt-[10px]"
+                    )}
+                  >
+                    <div className="w-[250px] min-w-[250px] border-l-0 border-y-0 border-solid border-default-400 border-[1px] pr-[10px]">
+                      {v.name}
+                    </div>
+                    <div className="ml-[15px] w-[100px]"> {v.count} </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
           <span className="h-[25px] w-[1px] bg-default-500 rounded-full mx-[5px]"></span>
           <FaRegClock className="ml-[5px] text-default-500 h-[16px] w-[16px]" />
