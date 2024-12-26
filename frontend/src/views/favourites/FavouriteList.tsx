@@ -22,10 +22,16 @@ const FavouriteList = () => {
       {items
         .filter(
           (v: any) =>
-            v.name.toLowerCase().includes(findItem.toLowerCase()) ||
-            v.author.toLowerCase().includes(findItem.toLowerCase()) ||
-            v.description.toLowerCase().includes(findItem.toLowerCase()) ||
-            v.manual.toLowerCase().includes(findItem.toLowerCase())
+            (v.name != undefined &&
+              v.name.toLowerCase().includes(findItem.toLowerCase())) ||
+            (v.author != undefined &&
+              v.author.username
+                .toLowerCase()
+                .includes(findItem.toLowerCase())) ||
+            (v.description != undefined &&
+              v.description.toLowerCase().includes(findItem.toLowerCase())) ||
+            (v.manual != undefined &&
+              v.manual.toLowerCase().includes(findItem.toLowerCase()))
         )
         .map((v: any, i: number) => (
           <FavouriteItem
