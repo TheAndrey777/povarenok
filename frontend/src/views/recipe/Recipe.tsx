@@ -1,11 +1,17 @@
 import { FaChevronDown, FaRegClock } from "react-icons/fa6";
 import { FiBookmark } from "react-icons/fi";
 import { BiLike, BiDislike } from "react-icons/bi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setMenuActiveId } from "../../redux/slices/storage";
+import React from "react";
 
 const Recipe = () => {
   const recipe = useSelector((state: any) => state.storage.recipe);
-  console.log(recipe);
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(setMenuActiveId({ id: -1 }));
+  }, []);
+
   const getCount = (n: number) => {
     if (n % 10 === 1 && n % 100 !== 11) {
       return n + " ингредиент";

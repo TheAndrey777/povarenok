@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getFavourites, getRecipe } from "../../redux/slices/recipe";
+import { setMenuActiveId } from "../../redux/slices/storage";
 
 const FavouriteList = () => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const FavouriteList = () => {
   React.useEffect(() => {
     dispatch(getRecipe());
     dispatch(getFavourites());
+    dispatch(setMenuActiveId({ id: 2 }));
   }, []);
 
   const items = useSelector((state: any) => state.recipe.favourites);

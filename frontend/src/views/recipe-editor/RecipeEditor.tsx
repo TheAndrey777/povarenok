@@ -9,7 +9,7 @@ import { cn } from "../../lib/cn";
 import { useDispatch } from "react-redux";
 import { createRecipe, getRecipe } from "../../redux/slices/recipe";
 import { useNavigate } from "react-router-dom";
-
+import { setMenuActiveId } from "../../redux/slices/storage";
 const RecipeEditor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,6 +30,10 @@ const RecipeEditor = () => {
     React.useState<string>("");
   const [createRecipeClick, setCreateRecipeClick] =
     React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    dispatch(setMenuActiveId({ id: 1 }));
+  }, []);
 
   return (
     <div className="bg-layout-background w-full mb-[10px] rounded-[15px] relative text-default-500 pt-[20px] pb-[55px]">

@@ -3,7 +3,7 @@ import RecipeItem from "./RecipeItem";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { getFavourites, getRecipe } from "../../redux/slices/recipe";
-
+import { setMenuActiveId } from "../../redux/slices/storage";
 const RecipeList = () => {
   const items = useSelector((state: any) => state.recipe.recipes);
   const favourites = useSelector((state: any) => state.recipe.favourites);
@@ -17,6 +17,7 @@ const RecipeList = () => {
   React.useEffect(() => {
     dispatch(getRecipe());
     dispatch(getFavourites());
+    dispatch(setMenuActiveId({ id: 0 }));
   }, []);
 
   return (

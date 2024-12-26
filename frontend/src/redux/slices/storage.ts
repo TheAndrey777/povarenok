@@ -4,7 +4,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
   menu: {
-    activeId: 0,
+    activeId: -1,
   },
   find: {
     findItem: "",
