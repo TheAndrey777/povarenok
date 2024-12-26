@@ -6,7 +6,8 @@ import { Button } from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { setRecipe } from "../../redux/slices/storage";
 import { useDispatch } from "react-redux";
-import { addFavourites } from "../../redux/slices/recipe";
+import { addFavourites, getFavourites } from "../../redux/slices/recipe";
+import { cn } from "../../lib/cn";
 
 interface ingredient {
   name: string;
@@ -25,6 +26,7 @@ interface RecipeItemProps {
   ingredients: ingredient[];
   time: string;
   manual: string;
+  favourite: boolean;
 }
 
 const RecipeItem: React.FC<RecipeItemProps> = ({
@@ -39,6 +41,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
   ingredients = [],
   time = "30 мин",
   manual = "",
+  favourite = false,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -103,17 +106,24 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
         </div>
       </div>
 
+      {!favourite && (
+        <Button
+          className="absolute right-[15px] bottom-[15px]"
+          text="Добавить в избранное"
+          onClick={() => {
+            dispatch(
+              addFavourites({ id, onSuccess: () => dispatch(getFavourites()) })
+            );
+            console.log(123);
+            //navigate("/home/favourite-list");
+          }}
+        />
+      )}
       <Button
-        className="absolute right-[15px] bottom-[15px]"
-        text="Добавить в избранное"
-        onClick={() => {
-          dispatch(addFavourites({ id }));
-          console.log(123);
-          navigate("/home/favourite-list");
-        }}
-      />
-      <Button
-        className="absolute right-[225px] bottom-[15px]"
+        className={cn(
+          "absolute right-[225px] bottom-[15px]",
+          favourite && "right-[15px]"
+        )}
         text="Готовить"
         variant="light"
         onClick={() => {

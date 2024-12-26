@@ -6,6 +6,8 @@ import { Button } from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { setRecipe } from "../../redux/slices/storage";
 import { useDispatch } from "react-redux";
+import { deleteFavourites, getFavourites } from "../../redux/slices/recipe";
+import { cn } from "../../lib/cn";
 
 interface ingredient {
   name: string;
@@ -104,6 +106,21 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
 
       <Button
         className="absolute right-[15px] bottom-[15px]"
+        text="Удалить из избранного"
+        onClick={() => {
+          dispatch(
+            deleteFavourites({
+              id,
+              onSuccess: () => {
+                dispatch(getFavourites());
+              },
+            })
+          );
+        }}
+      />
+
+      <Button
+        className={cn("absolute right-[225px] bottom-[15px]")}
         text="Готовить"
         variant="light"
         onClick={() => {
@@ -122,6 +139,7 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
               manual,
             })
           );
+
           navigate("/home/recipe");
         }}
       />

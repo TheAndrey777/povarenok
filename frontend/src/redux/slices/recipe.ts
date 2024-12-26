@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 export const createRecipe: any = createAsyncThunk(
   "/api/recipe/create",
   async (
-    { name, img, description, manual, time, ingredients }: any,
+    { name, img, description, manual, time, ingredients, onSuccess }: any,
     { rejectWithValue }: any
   ) => {
     return await axios
@@ -19,6 +19,9 @@ export const createRecipe: any = createAsyncThunk(
         ingredients,
       })
       .then((res: any) => {
+        setTimeout(() => onSuccess(), 200);
+        setTimeout(() => onSuccess(), 300);
+        setTimeout(() => onSuccess(), 1000);
         return { payload: res.data };
       })
       .catch((e: any) => {
@@ -30,6 +33,7 @@ export const createRecipe: any = createAsyncThunk(
 export const getFavourites: any = createAsyncThunk(
   "/api/user/get-favourites",
   async () => {
+    console.log("get favourites");
     const { data } = await axios.get("/api/user/favourites");
     return data;
   }
@@ -37,10 +41,13 @@ export const getFavourites: any = createAsyncThunk(
 
 export const addFavourites: any = createAsyncThunk(
   "/api/user/add-favourites",
-  async ({ id }: any, { rejectWithValue }: any) => {
+  async ({ id, onSuccess }: any, { rejectWithValue }: any) => {
     return await axios
       .post(`/api/recipe/${id}/favourite`)
       .then((res: any) => {
+        setTimeout(() => onSuccess(), 200);
+        setTimeout(() => onSuccess(), 300);
+        setTimeout(() => onSuccess(), 1000);
         return { payload: res.data };
       })
       .catch((e: any) => {
@@ -51,10 +58,13 @@ export const addFavourites: any = createAsyncThunk(
 
 export const deleteFavourites: any = createAsyncThunk(
   "/api/user/delete-favourites",
-  async ({ id }: any, { rejectWithValue }: any) => {
+  async ({ id, onSuccess }: any, { rejectWithValue }: any) => {
     return await axios
       .post(`/api/recipe/${id}/favourite`)
       .then((res: any) => {
+        setTimeout(() => onSuccess(), 200);
+        setTimeout(() => onSuccess(), 300);
+        setTimeout(() => onSuccess(), 1000);
         return { payload: res.data };
       })
       .catch((e: any) => {
@@ -124,7 +134,7 @@ const recipeSlice = createSlice({
     });
     builder.addCase(getFavourites.fulfilled, (state, { payload }) => {
       state.favourites = payload.data;
-      console.log(payload);
+      console.log("get favourite", payload);
       state.get.status = "loaded";
     });
     builder.addCase(getFavourites.rejected, (state, { payload }) => {
@@ -138,6 +148,7 @@ const recipeSlice = createSlice({
     });
     builder.addCase(addFavourites.fulfilled, (state) => {
       toast.success("Рецепт добавлен в избранное");
+      console.log("add");
       state.get.status = "loaded";
     });
     builder.addCase(addFavourites.rejected, (state) => {

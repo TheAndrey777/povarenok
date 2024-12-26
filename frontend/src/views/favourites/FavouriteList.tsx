@@ -12,7 +12,7 @@ const FavouriteList = () => {
     dispatch(getFavourites());
   }, []);
 
-  const items = useSelector((state: any) => state.recipe.recipes);
+  const items = useSelector((state: any) => state.recipe.favourites);
   const findItem = useSelector((state: any) => state.storage.find.findItem);
 
   return (

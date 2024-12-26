@@ -7,7 +7,7 @@ import { Modal } from "../../components/navigation/modal/Modal";
 import { IoClose } from "react-icons/io5";
 import { cn } from "../../lib/cn";
 import { useDispatch } from "react-redux";
-import { createRecipe } from "../../redux/slices/recipe";
+import { createRecipe, getRecipe } from "../../redux/slices/recipe";
 import { useNavigate } from "react-router-dom";
 
 const RecipeEditor = () => {
@@ -188,6 +188,7 @@ const RecipeEditor = () => {
               manual: createRecipeManual,
               time: createRecipeTime,
               ingredients: JSON.stringify(ingredients),
+              onSuccess: () => dispatch(getRecipe()),
             })
           );
           navigate("/home");

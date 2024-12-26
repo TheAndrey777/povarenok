@@ -6,8 +6,12 @@ import { getFavourites, getRecipe } from "../../redux/slices/recipe";
 
 const RecipeList = () => {
   const items = useSelector((state: any) => state.recipe.recipes);
+  const favourites = useSelector((state: any) => state.recipe.favourites);
   const findItem = useSelector((state: any) => state.storage.find.findItem);
-
+  console.log("-----");
+  console.log(favourites);
+  console.log(items);
+  console.log(favourites.indexOf(favourites[0]));
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -39,6 +43,7 @@ const RecipeList = () => {
             ingredients={v.ingredients == undefined ? [] : v.ingredients}
             time={v.time == undefined ? "" : v.time}
             manual={v.manual == undefined ? "" : v.manual}
+            favourite={favourites.find((c: any) => c.id === v.id)}
           />
         ))}
     </div>
