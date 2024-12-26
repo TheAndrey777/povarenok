@@ -25,7 +25,17 @@ class RecipeController {
   }
 
   async deleteRecipe(req: Request, res: Response, next: NextFunction) {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return next(new ValidationException(errors.array()));
+    }
+
+    await recipeService.deleteById(parseInt(req.params.id));
+    res.send({
+      status: "success"
+    });
   }
+  
 
   async getRecipe(req: Request, res: Response, next: NextFunction) {
     const errors = validationResult(req);

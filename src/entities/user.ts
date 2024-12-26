@@ -30,7 +30,7 @@ export class User extends BaseEntity {
   })
   password!: string;
 
-  @OneToMany(() => Recipe, (recipe) => recipe.author)
+  @OneToMany(() => Recipe, (recipe) => recipe.author, { onDelete: "CASCADE" })
   recipes: Recipe[];
 
   @ManyToMany(() => Recipe)

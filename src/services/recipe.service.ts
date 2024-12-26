@@ -58,6 +58,12 @@ class RecipeService {
       user.favourites.push(recipe);
     await user.save();
   }
+
+  public async deleteById(recipeId: number) {
+    return await Recipe.delete({
+      id: recipeId
+    });
+  }
 }
 
 export default new RecipeService;
