@@ -1,7 +1,6 @@
 import { FaChevronDown, FaRegClock } from "react-icons/fa6";
 import { FiBookmark } from "react-icons/fi";
 import { BiLike, BiDislike } from "react-icons/bi";
-import { Button } from "../../components/button/Button";
 import { useSelector } from "react-redux";
 
 const Recipe = () => {
@@ -94,14 +93,6 @@ const Recipe = () => {
       <div className="font-medium text-[14px] whitespace-pre-wrap ml-[20px] mb-[15px] text-layout-foreground">
         {recipe.manual}
       </div>
-
-      <Button
-        className="absolute right-[20px] bottom-[20px]"
-        text="Добавить в избранное"
-        onClick={() => {
-          console.log("click recipe" + recipe.id);
-        }}
-      />
     </div>
   );
 };

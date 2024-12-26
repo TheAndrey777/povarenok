@@ -6,8 +6,15 @@ import { Button } from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { setRecipe } from "../../redux/slices/storage";
 import { useDispatch } from "react-redux";
-import { addFavourites, getFavourites } from "../../redux/slices/recipe";
+import {
+  addFavourites,
+  deleteRecipe,
+  getFavourites,
+  getRecipe,
+} from "../../redux/slices/recipe";
 import { cn } from "../../lib/cn";
+import { BiTrash } from "react-icons/bi";
+import { useSelector } from "react-redux";
 
 interface ingredient {
   name: string;
@@ -45,6 +52,9 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const me = useSelector((state: any) => state.user.username);
+
   const getCount = (n: number) => {
     if (n % 10 === 1 && n % 100 !== 11) {
       return n + " ингредиент";
@@ -145,6 +155,19 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
           navigate("/home/recipe");
         }}
       />
+
+      {author == me && (
+        <div
+          className=" absolute right-[15px] top-[15px] h-[30px] w-[30px] cursor-pointer  flex items-center justify-center bg-transparent duration-300 hover:bg-danger-200 rounded-md active:scale-90 transition-all scale-100"
+          onClick={() => {
+            dispatch(
+              deleteRecipe({ id, onSuccess: () => dispatch(getRecipe()) })
+            );
+          }}
+        >
+          <BiTrash className="h-[25px] w-[25px] text-default" />
+        </div>
+      )}
     </div>
   );
 };

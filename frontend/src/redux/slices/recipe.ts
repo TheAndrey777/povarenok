@@ -73,6 +73,23 @@ export const deleteFavourites: any = createAsyncThunk(
   }
 );
 
+export const deleteRecipe: any = createAsyncThunk(
+  "/api/recipe/delete",
+  async ({ id, onSuccess }: any, { rejectWithValue }: any) => {
+    return await axios
+      .delete(`/api/recipe/${id}`)
+      .then((res: any) => {
+        setTimeout(() => onSuccess(), 200);
+        setTimeout(() => onSuccess(), 300);
+        setTimeout(() => onSuccess(), 1000);
+        return { payload: res.data };
+      })
+      .catch((e: any) => {
+        return rejectWithValue({ data: e.response.data });
+      });
+  }
+);
+
 export const getRecipe: any = createAsyncThunk("/api/recipe/get", async () => {
   const { data } = await axios.get("/api/recipe");
   return data;
@@ -164,6 +181,18 @@ const recipeSlice = createSlice({
       state.get.status = "loaded";
     });
     builder.addCase(deleteFavourites.rejected, (state) => {
+      state.get.status = "error";
+    });
+
+    // *deleteRecipe
+    builder.addCase(deleteRecipe.pending, (state) => {
+      state.get.status = "loading";
+    });
+    builder.addCase(deleteRecipe.fulfilled, (state) => {
+      toast.success("Рецепт удален");
+      state.get.status = "loaded";
+    });
+    builder.addCase(deleteRecipe.rejected, (state) => {
       state.get.status = "error";
     });
   },

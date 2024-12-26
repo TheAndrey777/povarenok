@@ -6,12 +6,14 @@ import Home from "./pages/home/Home";
 import { useDispatch } from "react-redux";
 import React from "react";
 import { getFavourites, getRecipe } from "./redux/slices/recipe";
+import { getUser } from "./redux/slices/user";
 const App = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getRecipe());
     dispatch(getFavourites());
+    dispatch(getUser());
   }, []);
 
   return (
