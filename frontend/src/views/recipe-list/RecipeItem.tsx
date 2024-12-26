@@ -6,6 +6,7 @@ import { Button } from "../../components/button/Button";
 import { useNavigate } from "react-router-dom";
 import { setRecipe } from "../../redux/slices/storage";
 import { useDispatch } from "react-redux";
+import { addFavourites } from "../../redux/slices/recipe";
 
 interface ingredient {
   name: string;
@@ -106,7 +107,9 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
         className="absolute right-[15px] bottom-[15px]"
         text="Добавить в избранное"
         onClick={() => {
-          navigate("/home/favourites");
+          dispatch(addFavourites({ id }));
+          console.log(123);
+          navigate("/home/favourite-list");
         }}
       />
       <Button

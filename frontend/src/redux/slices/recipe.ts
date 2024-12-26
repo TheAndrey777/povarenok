@@ -27,15 +27,50 @@ export const createRecipe: any = createAsyncThunk(
   }
 );
 
+export const getFavourites: any = createAsyncThunk(
+  "/api/user/get-favourites",
+  async () => {
+    const { data } = await axios.get("/api/user/favourites");
+    return data;
+  }
+);
+
+export const addFavourites: any = createAsyncThunk(
+  "/api/user/add-favourites",
+  async ({ id }: any, { rejectWithValue }: any) => {
+    return await axios
+      .post(`/api/recipe/${id}/favourite`)
+      .then((res: any) => {
+        return { payload: res.data };
+      })
+      .catch((e: any) => {
+        return rejectWithValue({ data: e.response.data });
+      });
+  }
+);
+
+export const deleteFavourites: any = createAsyncThunk(
+  "/api/user/delete-favourites",
+  async ({ id }: any, { rejectWithValue }: any) => {
+    return await axios
+      .post(`/api/recipe/${id}/favourite`)
+      .then((res: any) => {
+        return { payload: res.data };
+      })
+      .catch((e: any) => {
+        return rejectWithValue({ data: e.response.data });
+      });
+  }
+);
+
 export const getRecipe: any = createAsyncThunk("/api/recipe/get", async () => {
-  console.log("get recipe");
   const { data } = await axios.get("/api/recipe");
-  console.log(data);
   return data;
 });
 
 const initialState = {
   recipes: [],
+  favourites: [],
   add: {
     status: "none",
   },
@@ -75,13 +110,49 @@ const recipeSlice = createSlice({
       state.get.status = "loading";
     });
     builder.addCase(getRecipe.fulfilled, (state, { payload }) => {
-      console.log(payload.data);
       state.recipes = payload.data;
-      console.log(123, state.recipes);
       state.get.status = "loaded";
     });
     builder.addCase(getRecipe.rejected, (state, { payload }) => {
       if (payload.data.message) toast.error(payload.data.message);
+      state.get.status = "error";
+    });
+
+    // *getFavourites
+    builder.addCase(getFavourites.pending, (state) => {
+      state.get.status = "loading";
+    });
+    builder.addCase(getFavourites.fulfilled, (state, { payload }) => {
+      state.favourites = payload.data;
+      console.log(payload);
+      state.get.status = "loaded";
+    });
+    builder.addCase(getFavourites.rejected, (state, { payload }) => {
+      if (payload.data.message) toast.error(payload.data.message);
+      state.get.status = "error";
+    });
+
+    // *addFavourites
+    builder.addCase(addFavourites.pending, (state) => {
+      state.get.status = "loading";
+    });
+    builder.addCase(addFavourites.fulfilled, (state) => {
+      toast.success("Рецепт добавлен в избранное");
+      state.get.status = "loaded";
+    });
+    builder.addCase(addFavourites.rejected, (state) => {
+      state.get.status = "error";
+    });
+
+    // *deleteFavourites
+    builder.addCase(deleteFavourites.pending, (state) => {
+      state.get.status = "loading";
+    });
+    builder.addCase(deleteFavourites.fulfilled, (state) => {
+      toast.success("Рецепт удален из избранного");
+      state.get.status = "loaded";
+    });
+    builder.addCase(deleteFavourites.rejected, (state) => {
       state.get.status = "error";
     });
   },

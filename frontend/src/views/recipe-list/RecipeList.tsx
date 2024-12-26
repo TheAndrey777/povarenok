@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import RecipeItem from "./RecipeItem";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getRecipe } from "../../redux/slices/recipe";
+import { getFavourites, getRecipe } from "../../redux/slices/recipe";
 
 const RecipeList = () => {
   const items = useSelector((state: any) => state.recipe.recipes);
@@ -12,6 +12,7 @@ const RecipeList = () => {
 
   React.useEffect(() => {
     dispatch(getRecipe());
+    dispatch(getFavourites());
   }, []);
 
   return (

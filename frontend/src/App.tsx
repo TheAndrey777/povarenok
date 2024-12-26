@@ -5,12 +5,13 @@ import Register from "./pages/auth/Register";
 import Home from "./pages/home/Home";
 import { useDispatch } from "react-redux";
 import React from "react";
-import { getRecipe } from "./redux/slices/recipe";
+import { getFavourites, getRecipe } from "./redux/slices/recipe";
 const App = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getRecipe());
+    dispatch(getFavourites());
   }, []);
 
   return (

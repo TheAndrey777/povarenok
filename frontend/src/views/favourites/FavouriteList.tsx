@@ -2,13 +2,14 @@ import FavouriteItem from "./FavouriteItem";
 import { useSelector } from "react-redux";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { getRecipe } from "../../redux/slices/recipe";
+import { getFavourites, getRecipe } from "../../redux/slices/recipe";
 
 const FavouriteList = () => {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch(getRecipe());
+    dispatch(getFavourites());
   }, []);
 
   const items = useSelector((state: any) => state.recipe.recipes);
