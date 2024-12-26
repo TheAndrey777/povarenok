@@ -6,7 +6,14 @@ import { BiTrash } from "react-icons/bi";
 import { Modal } from "../../components/navigation/modal/Modal";
 import { IoClose } from "react-icons/io5";
 import { cn } from "../../lib/cn";
+import { useDispatch } from "react-redux";
+import { createRecipe } from "../../redux/slices/recipe";
+import { useNavigate } from "react-router-dom";
+
 const RecipeEditor = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [ingredients, setIngredients] = React.useState<any[]>([]);
   const [modalActive, setModalActive] = React.useState<boolean>(false);
 
@@ -85,6 +92,7 @@ const RecipeEditor = () => {
         Поле не может быть пустым
       </div>
       <Input
+        type="number"
         label="Время приготовления"
         onChange={(v: any) => setCreateRecipeTime(v)}
         required
@@ -172,6 +180,17 @@ const RecipeEditor = () => {
             createRecipeImg,
             createRecipeManual
           );
+          dispatch(
+            createRecipe({
+              name: createRecipeName,
+              img: createRecipeImg,
+              description: createRecipeDescription,
+              manual: createRecipeManual,
+              time: createRecipeTime,
+              ingredients: JSON.stringify(ingredients),
+            })
+          );
+          navigate("/home");
         }}
       />
 

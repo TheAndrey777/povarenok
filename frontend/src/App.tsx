@@ -3,8 +3,16 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import Home from "./pages/home/Home";
-
+import { useDispatch } from "react-redux";
+import React from "react";
+import { getRecipe } from "./redux/slices/recipe";
 const App = () => {
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getRecipe());
+  }, []);
+
   return (
     <>
       <Switch

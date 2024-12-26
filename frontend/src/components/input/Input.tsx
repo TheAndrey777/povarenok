@@ -46,7 +46,7 @@ interface SwitchProps {
   radius?: "sm" | "md" | "lg" | "none" | "full";
   disabled?: boolean;
   placeholder?: string;
-  type?: "text" | "email" | "password" | "first_name";
+  type?: "text" | "email" | "password" | "first_name" | "number";
   color?:
     | "default"
     | "primary"

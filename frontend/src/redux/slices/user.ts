@@ -105,7 +105,7 @@ const userSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, { payload }) => {
       if (payload.payload.status === "success") {
-        toast.success("Авторизация успешна");
+        toast.success("Успешная авторизация");
         const data = payload.payload.data;
         state.isAuthorized = true;
         state.username = data.username;
@@ -118,7 +118,7 @@ const userSlice = createSlice({
       }
     });
     builder.addCase(loginUser.rejected, (state) => {
-      toast.error("Ошибка валидаии тела запроса");
+      toast.error("Ошибка валидации тела запроса");
       state.status = "error";
     });
 
@@ -128,7 +128,7 @@ const userSlice = createSlice({
     });
     builder.addCase(registerUser.fulfilled, (state, { payload }) => {
       if (payload.payload.status === "success") {
-        toast.error("Регистрация успешна");
+        toast.success("Успешная регистрация");
         state.isAuthorized = true;
       } else {
         toast.error("Пользователь уже зарегистрирован");
@@ -136,7 +136,7 @@ const userSlice = createSlice({
       state.status = "loaded";
     });
     builder.addCase(registerUser.rejected, (state) => {
-      toast.error("Ошибка валидаии тела запроса");
+      toast.error("Ошибка валидации тела запроса");
       state.status = "error";
     });
 

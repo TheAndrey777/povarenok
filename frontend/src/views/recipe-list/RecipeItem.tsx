@@ -65,8 +65,8 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
         <div className=" h-[48px] whitespace-normal line-clamp-3 text-ellipsis overflow-hidden  leading-4 font-medium text-[12px]">
           {description}
         </div>
-        <div className="text-default-400 font-medium text-[12px] leading-5 underline cursor-pointer  h-[20px]">
-          {"Автор:"}
+        <div className="text-default-400 font-medium text-[12px] leading-5 cursor-pointer  h-[20px]">
+          {"Автор: "}
           {author}
         </div>
         <div className="h-[26px]  my-[5px] flex items-center">

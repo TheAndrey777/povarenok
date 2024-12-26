@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { storageReducer } from "./slices/storage";
 import { userReducer } from "./slices/user";
+import { recipeReducer } from "./slices/recipe";
 
 //import { useDispatch } from "react-redux";
 //const dispatch = useDispatch();
@@ -9,6 +10,7 @@ import { userReducer } from "./slices/user";
 
 const store = configureStore({
   reducer: {
+    recipe: recipeReducer,
     storage: storageReducer,
     user: userReducer,
   },
