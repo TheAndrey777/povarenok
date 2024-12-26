@@ -19,6 +19,7 @@ recipeRouter.post(
   param("id")
     .exists().withMessage("Параметр id отсутствует")
     .isInt({ min: 1, max: 1e9 }).withMessage("Параметр id должен быть числом. И должен быть от 1 до 1e9"),
+  isAuthorized,
   RecipeController.addToFavourites
 );
 
