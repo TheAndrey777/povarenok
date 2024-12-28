@@ -8,10 +8,20 @@ class UserController {
     if (!user) {
       return next(new HttpException(404, "Пользователь не найден"));
     }
-
     res.send({
       status: "success",
       data: user.favourites
+    });
+  }
+
+  async getProfile(req: Request, res: Response, next: NextFunction) {
+    const user = await userService.getUserById(req.user?.id!);
+    if (!user) {
+      return next(new HttpException(404, "Пользователь не найден"));
+    }
+    res.send({
+      status: "success",
+      data: user
     });
   }
 }

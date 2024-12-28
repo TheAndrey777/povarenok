@@ -9,3 +9,9 @@ userRouter.get(
   isAuthorized,
   UserController.getFavouriteRecipes
 );
+
+userRouter.get(
+  "/profile",
+  isAuthorized,
+  UserController.getProfile
+);

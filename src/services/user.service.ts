@@ -30,8 +30,10 @@ class UserService {
         id
       },
       relations: {
-        favourites: true
-      }
+        favourites: true,
+        recipes: true
+      },
+      select: ["id", "admin", "email", "username", "recipes", "favourites"]
     });
   }
 
