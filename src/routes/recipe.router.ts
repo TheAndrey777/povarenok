@@ -53,6 +53,9 @@ recipeRouter.post(
   body("ingredients")
     .exists().withMessage("Поле ingredients отсутствует")
     .isJSON().withMessage("Поле ingredients должно содержать JSON"),
+  body("category")
+    .optional()
+    .isInt({ min: 0, max: 6 }).withMessage("Поле category должно быть числом от 0 до 6"),
   RecipeController.createRecipe
 );
 

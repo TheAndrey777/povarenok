@@ -1,4 +1,4 @@
-import { Recipe } from "../entities/recipe";
+import { Category, Recipe } from "../entities/recipe";
 import { JSONValue } from "../types/json.type";
 import userService from "./user.service";
 
@@ -10,7 +10,8 @@ class RecipeService {
     description: string, 
     manual: string, 
     time: number, 
-    ingredients: JSONValue
+    ingredients: JSONValue,
+    category: Category = Category.DEFAULT
   ) {
     const user = await userService.getUserById(userId);
     if (!user)
@@ -23,6 +24,7 @@ class RecipeService {
     recipe.manual = manual;
     recipe.time = time;
     recipe.ingredients = ingredients;
+    recipe.category = category;
     await recipe.save();
   }
 

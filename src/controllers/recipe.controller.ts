@@ -18,7 +18,8 @@ class RecipeController {
       req.body.description,
       req.body.manual,
       req.body.time,
-      JSON.parse(req.body.ingredients)
+      JSON.parse(req.body.ingredients),
+      req.body?.category
     );
 
     res.send({ status: "success" });

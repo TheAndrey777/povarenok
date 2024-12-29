@@ -2,6 +2,16 @@ import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "t
 import { User } from "./user";
 import { JSONValue } from "../types/json.type";
 
+export enum Category {
+  DEFAULT,
+  SALAD,
+  FIRST,
+  SECOND,
+  DESSERT,
+  BAKERY,
+  SNACK,
+}
+
 @Entity("recipes")
 export class Recipe extends BaseEntity {
   @PrimaryGeneratedColumn()
@@ -15,6 +25,13 @@ export class Recipe extends BaseEntity {
     length: 128,
   })
   name!: string;
+
+  @Column({
+    type: "enum",
+    enum: Category,
+    default: Category.DEFAULT
+  })
+  category: Category;
 
   @Column({
     type: "varchar",
