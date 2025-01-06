@@ -218,10 +218,11 @@ const RecipeEditor = () => {
           <div className="flex items-center justify-center">
             <div className="w-full relative box-border px-[40px] transition-all">
               <div className="font-semibold text-[20px] text-content-1 pt-[30px] pb-[10px]  ">
-                Создание офиса
+                Добавление ингредиента
               </div>
               <div className="text-[14px] text-content-1  pb-[10px]  ">
-                Для создания офиса необходимо указать его адрес и название.
+                Для добавления ингредиента необходимо указать его название и
+                количество.
               </div>
               {createClick && createName == "" && (
                 <div className="text-[14px] text-danger font-medium  h-[21px] transition-all">
