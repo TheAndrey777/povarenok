@@ -60,7 +60,12 @@ class AuthController {
       return next(new ValidationException(errors.array()));
     }
 
-    const dbUser = await userService.findByUsername(req.body.username);
+    let dbUser = await userService.findByUsername(req.body.username);
+    if (dbUser) {
+      return next(new UserExistsException);
+    }
+
+    dbUser = await userService.findByEmail(req.body.email);
     if (dbUser) {
       return next(new UserExistsException);
     }

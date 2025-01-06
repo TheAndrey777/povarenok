@@ -11,6 +11,15 @@ class UserService {
     });
   }
 
+  public async findByEmail(email: string): Promise<User | null> {
+    return await User.findOne({
+      where: {
+        email
+      },
+      select: ["id", "admin", "email", "username", "password"]
+    });
+  }
+
   public async createUser(username: string, email: string, password: string): Promise<number | null>  {
     const res: InsertResult = await User.insert({
       username,
