@@ -16,6 +16,8 @@ import { cn } from "../../lib/cn";
 import { BiTrash } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useClickOutside } from "../../hooks/useClickOutside";
+import { Modal } from "../../components/navigation/modal/Modal";
+import { IoClose } from "react-icons/io5";
 
 interface ingredient {
   name: string;
@@ -57,6 +59,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
   const me = useSelector((state: any) => state.user.username);
 
   const [active, setActive] = React.useState(false);
+  const [modalActive, setModalActive] = React.useState(false);
 
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -104,7 +107,7 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
         <div className="h-[23px]  text-[18px] font-semibold flex items-center">
           {name}
         </div>
-        <div className=" h-[48px] whitespace-normal line-clamp-3 text-ellipsis overflow-hidden  leading-4 font-medium text-[12px]">
+        <div className=" h-[48px] whitespace-normal line-clamp-3 text-ellipsis overflow-hidden  leading-4 font-medium text-[12px] w-full box-border pr-[20px]">
           {description}
         </div>
         <div className="text-default-400 font-medium text-[12px] leading-5 cursor-pointer  h-[20px]">
@@ -144,14 +147,14 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
             </div>
             <FaChevronDown
               className={cn(
-                "text-default-500 ml-[10px] mr-[5px]  h-[14px] w-[14px]rotate-0 transition-all",
+                "text-default-500 ml-[10px] mr-[5px]  h-[14px] w-[14px] rotate-0 transition-all",
                 active && "rotate-180"
               )}
             />
             <div
               className={cn(
-                " bg-layout-background border-transparent border-solid border-[1px] min-w-[400px] grid-rows-[0fr] absolute top-[100%] left-0 grid  overflow-hidden transition-all rounded-[10px]  z-10 mt-[5px]",
-                active && "grid-rows-[1fr] border-default-300"
+                " bg-layout-background border-transparent border-solid border-[1px] min-w-[400px] grid-rows-[0fr] absolute top-[100%] left-0 grid  overflow-hidden transition-all rounded-[10px]  z-0 mt-[5px]",
+                active && "grid-rows-[1fr] border-default-300 z-20"
               )}
             >
               <div className="w-[100%] overflow-hidden">
@@ -222,16 +225,63 @@ const RecipeItem: React.FC<RecipeItemProps> = ({
 
       {author == me && (
         <div
-          className=" absolute right-[15px] top-[15px] h-[30px] w-[30px] cursor-pointer  flex items-center justify-center bg-transparent duration-300 hover:bg-danger-200 rounded-md active:scale-90 transition-all scale-100"
+          className=" absolute right-[10px] top-[10px] h-[30px] w-[30px] cursor-pointer  flex items-center justify-center bg-transparent duration-300 hover:bg-danger-200 rounded-md active:scale-90 transition-all scale-100"
           onClick={() => {
-            dispatch(
-              deleteRecipe({ id, onSuccess: () => dispatch(getRecipe()) })
-            );
+            setModalActive(true);
           }}
         >
           <BiTrash className="h-[25px] w-[25px] text-default" />
         </div>
       )}
+
+      <Modal open={modalActive} onOpenChange={setModalActive}>
+        <div className=" w-[500px] bg-layout-background rounded-[15px] relative border-solid border-default-200 border-[1px]">
+          <div
+            className=" cursor-pointer absolute right-[15px] top-[15px] h-[25px] w-[25px] active:scale-[0.95] hover:scale-[1.15] transition-all duration-300 z-40 "
+            onClick={() => {
+              setModalActive(false);
+            }}
+          >
+            <IoClose className="cursor-pointer h-[25px] w-[25px]" />
+          </div>
+          <div className="flex items-center justify-center">
+            <div className="w-full relative box-border px-[40px] transition-all">
+              <div className="font-semibold text-[20px] text-content-1 pt-[30px] pb-[10px]  ">
+                Удаление рецепта
+              </div>
+              <div className="text-[14px] text-content-1  pb-[10px]  ">
+                Вы действительно хотите удалить рецепт {name}?
+              </div>
+
+              <div className="w-full flex  h-[75px] items-center justify-end">
+                <Button
+                  className="m-4"
+                  size="md"
+                  color="default"
+                  onClick={() => {
+                    setModalActive(false);
+                  }}
+                  text="Отмена"
+                />
+                <Button
+                  size="md"
+                  color="danger"
+                  onClick={() => {
+                    setModalActive(false);
+                    dispatch(
+                      deleteRecipe({
+                        id,
+                        onSuccess: () => dispatch(getRecipe()),
+                      })
+                    );
+                  }}
+                  text="Удалить"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
