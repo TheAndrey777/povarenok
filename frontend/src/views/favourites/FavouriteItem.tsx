@@ -129,14 +129,14 @@ const FavouriteItem: React.FC<FavouriteItemProps> = ({
             </div>
             <FaChevronDown
               className={cn(
-                "text-default-500 ml-[10px] mr-[5px]  h-[14px] w-[14px]rotate-0 transition-all",
+                "text-default-500 ml-[10px] mr-[5px]  h-[14px] w-[14px] rotate-0 transition-all",
                 active && "rotate-180"
               )}
             />
             <div
               className={cn(
-                " bg-layout-background border-transparent border-solid border-[1px] min-w-[400px] grid-rows-[0fr] absolute top-[100%] left-0 grid  overflow-hidden transition-all rounded-[10px]  z-10 mt-[5px]",
-                active && "grid-rows-[1fr] border-default-300"
+                " bg-layout-background border-transparent border-solid border-[1px] min-w-[400px] grid-rows-[0fr] absolute top-[100%] left-0 grid  overflow-hidden transition-all rounded-[10px]  z-0 mt-[5px]",
+                active && "grid-rows-[1fr] border-default-30 z-20"
               )}
             >
               <div className="w-[100%] overflow-hidden">
