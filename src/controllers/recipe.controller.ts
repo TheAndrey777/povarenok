@@ -31,6 +31,11 @@ class RecipeController {
       return next(new ValidationException(errors.array()));
     }
 
+    const recipe = await recipeService.findRecipeById(parseInt(req.params.id));
+    if (!recipe) {
+      return next(new HttpException(404, "Рецепт не найден"));
+    }
+
     await recipeService.deleteById(parseInt(req.params.id));
     res.send({
       status: "success"
